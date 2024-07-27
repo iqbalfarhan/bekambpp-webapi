@@ -1,14 +1,14 @@
 <div class="page-wrapper">
     @livewire('partial.header', [
-        'title' => 'Pengaturan paket',
-        'subtitle' => 'daftar paket yang tersedia',
+        'title' => 'Paket terapi',
+        'subtitle' => 'Pengaturan paket terapi',
     ])
 
     <div class="flex flex-col md:flex-row justify-between gap-1">
-        <input type="search" class="input bg-base-100" placeholder="Pencarian" />
+        <input type="search" class="input" placeholder="Pencarian" />
         <button class="btn btn-primary" wire:click="$dispatch('createPaket')">
-            <x-tabler-plus class="size-5" />
-            <span>Tambah baru</span>
+            <x-tabler-circle-plus class="size-5" />
+            <span>Tambah paket</span>
         </button>
     </div>
 

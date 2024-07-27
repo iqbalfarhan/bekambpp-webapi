@@ -14,15 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::middleware('auth')->group(function(){
     Route::get('/home', \App\Livewire\Pages\Home::class)->name('home');
     Route::get('/dokumentasi', \App\Livewire\Pages\Dokumentasi::class)->name('dokumentasi');
     Route::get('/profile', \App\Livewire\User\Profile::class)->name('profile');
+    Route::get('/order', \App\Livewire\Order\Index::class)->name('order.index');
     Route::get('/user', \App\Livewire\User\Index::class)->name('user.index');
+    Route::get('/user/{user}', \App\Livewire\User\Show::class)->name('user.show');
     Route::get('/paket', \App\Livewire\Paket\Index::class)->name('paket.index');
+    Route::get('/sesi', \App\Livewire\Sesi\Index::class)->name('sesi.index');
 });
 
 Route::middleware('guest')->group(function(){

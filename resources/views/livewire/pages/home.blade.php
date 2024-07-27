@@ -8,8 +8,22 @@
     <div class="grid md:grid-cols-3 gap-2 md:gap-4">
         @livewire('widget.count', [
             'number' => $users,
-            'title' => 'Total customer',
-            'subtitle' => 'total customers terdaftar',
+            'title' => 'Booking sesi hari ini',
+            'subtitle' => 'Sesi yang dibooking',
+        ])
+        @livewire('widget.count', [
+            'number' => $users,
+            'title' => 'Booking baru',
+            'subtitle' => 'Booking belum diapprove',
+        ])
+        @livewire('widget.count', [
+            'number' => $users,
+            'title' => 'Sudah selesaui bekam',
+            'subtitle' => 'Selesai sesi',
         ])
     </div>
+
+    <h2>Sesi Booking yang belum diapprove</h2>
+
+    @livewire('order.table')
 </div>

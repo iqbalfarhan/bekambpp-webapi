@@ -10,7 +10,10 @@ class UserForm extends Form
 {
     public $name;
     public $email;
-    public $password;
+    public $password = "randompass";
+    public $phone;
+    public $photo;
+    public $address;
 
     public ?User $user;
 
@@ -19,6 +22,8 @@ class UserForm extends Form
         $this->user = $user;
         $this->name = $user->name;
         $this->email = $user->email;
+        $this->phone = $user->phone;
+        $this->address = $user->address;
     }
 
     public function store()
@@ -27,6 +32,8 @@ class UserForm extends Form
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'phone' => '',
+            'address' => '',
         ]);
 
         User::create($valid);
@@ -39,6 +46,8 @@ class UserForm extends Form
         $valid = $this->validate([
             'name' => 'required',
             'email' => 'required',
+            'phone' => '',
+            'address' => '',
         ]);
 
         if ($this->password) {

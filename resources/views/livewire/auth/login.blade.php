@@ -1,12 +1,26 @@
-<div class="card w-full max-w-sm">
-    <form class="card-body" wire:submit="login">
-        <h3 class="card-title">Login</h3>
-        <div class="py-4 space-y-2">
-            <label class="form-control">
-                <input type="email" placeholder="Email address" @class(['input', 'input-error' => $errors->first('email')]) wire:model="email" />
+<div class="card w-full max-w-sm bg-base-100 shadow-lg">
+    <form class="card-body space-y-5" wire:submit="login">
+        <div class="avatar items-center justify-center">
+            <div class="w-20">
+                <img src="{{ url('logoimage.png') }}" alt="">
+            </div>
+        </div>
+        <h3 class="card-title font-bold">Login {{ config('app.name') }}</h3>
+        <div class="space-y-2">
+            <label @class([
+                'input flex items-center gap-2',
+                'input-error' => $errors->first('email'),
+            ])>
+                <x-tabler-at class="size-6" />
+                <input type="email" class="grow" placeholder="Email" wire:model="email" />
             </label>
-            <label class="form-control">
-                <input type="password" placeholder="Password" @class(['input', 'input-error' => $errors->first('password')]) wire:model="password" />
+
+            <label @class([
+                'input flex items-center gap-2',
+                'input-error' => $errors->first('password'),
+            ])>
+                <x-tabler-key class="size-6" />
+                <input type="password" class="grow" placeholder="Email" wire:model="password" />
             </label>
 
             @if ($errors->any())

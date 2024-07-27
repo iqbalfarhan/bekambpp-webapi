@@ -2,28 +2,57 @@
     <input type="checkbox" class="modal-toggle" @checked($show) />
     <div class="modal" role="dialog">
         <form class="modal-box max-w-sm" wire:submit="simpan">
-            <h3 class="font-bold text-lg">Form user</h3>
+            <h3 class="font-bold text-lg">Form pengaturan user</h3>
             <div class="py-4 space-y-2">
-                <label class="form-control">
+                <div class="form-control">
                     <div class="label">
                         <span class="label-text">Nama lengkap</span>
                     </div>
-                    <input type="text" placeholder="Full name" @class(['input', 'input-error' => $errors->first('form.name')]) wire:model="form.name" />
-                </label>
-                <label class="form-control">
+                    <label @class([
+                        'input flex items-center gap-2',
+                        'input-error' => $errors->first('form.name'),
+                    ])>
+                        <x-tabler-user-circle />
+                        <input type="text" placeholder="Full name" class="grow" wire:model="form.name" />
+                    </label>
+                </div>
+                <div class="form-control">
                     <div class="label">
                         <span class="label-text">Alamat email</span>
                     </div>
-                    <input type="email" placeholder="Email address" @class(['input', 'input-error' => $errors->first('form.email')])
-                        wire:model="form.email" />
-                </label>
-                <label class="form-control">
+                    <label @class([
+                        'input flex items-center gap-2',
+                        'input-error' => $errors->first('form.email'),
+                    ])>
+                        <x-tabler-at />
+                        <input type="email" placeholder="Email address" class="grow" wire:model="form.email" />
+                    </label>
+                </div>
+                <div class="form-control">
                     <div class="label">
-                        <span class="label-text">Password baru</span>
+                        <span class="label-text">Nomor telepon</span>
                     </div>
-                    <input type="password" placeholder="Password" @class(['input', 'input-error' => $errors->first('form.password')])
-                        wire:model="form.password" />
-                </label>
+                    <label @class([
+                        'input flex items-center gap-2',
+                        'input-error' => $errors->first('form.phone'),
+                    ])>
+                        <x-tabler-phone />
+                        <input type="text" placeholder="Nomor telepon" class="grow" wire:model="form.phone"
+                            inputmode="numeric" />
+                    </label>
+                </div>
+                <div class="form-control">
+                    <div class="label">
+                        <span class="label-text">Alamat</span>
+                    </div>
+                    <label @class([
+                        'input flex items-center gap-2',
+                        'input-error' => $errors->first('form.address'),
+                    ])>
+                        <x-tabler-pin />
+                        <input type="text" placeholder="Alamat rumah" class="grow" wire:model="form.address" />
+                    </label>
+                </div>
             </div>
             <div class="modal-action justify-between">
                 <button wire:click="closeModal" type="button" class="btn btn-ghost">Close</button>

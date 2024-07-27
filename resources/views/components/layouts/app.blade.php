@@ -32,8 +32,7 @@
         @endauth
 
         @guest
-            <div class="flex flex-col justify-center items-center h-screen p-6 space-y-8">
-                <h3 class="text-3xl font-bold">{{ config('app.name') }}</h3>
+            <div class="flex flex-col justify-center items-center h-screen p-6 space-y-8 bg-base-200">
                 {{ $slot }}
             </div>
         @endguest
