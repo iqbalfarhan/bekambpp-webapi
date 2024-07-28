@@ -10,7 +10,7 @@
                     </div>
                     <label for="" class="input flex items-center gap-2">
                         <x-tabler-user class="size-5" />
-                        <input type="text" class="grow" placeholder="nama user">
+                        <input type="text" class="grow" placeholder="nama user" value="{{ $order?->user->name }}">
                     </label>
                 </div>
                 <div class="form-control">
@@ -19,7 +19,8 @@
                     </div>
                     <label for="" class="input flex items-center gap-2">
                         <x-tabler-clock class="size-5" />
-                        <input type="text" class="grow" placeholder="nama user">
+                        <input type="text" class="grow" placeholder="nama user"
+                            value="{{ $order?->sesi->jam_text }}">
                     </label>
                 </div>
                 <div class="form-control">
@@ -28,7 +29,7 @@
                     </div>
                     <label for="" class="input flex items-center gap-2">
                         <x-tabler-box class="size-5" />
-                        <input type="text" class="grow" placeholder="nama user">
+                        <input type="text" class="grow" placeholder="nama user" value="{{ $order?->paket->name }}">
                     </label>
                 </div>
             </div>

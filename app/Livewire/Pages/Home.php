@@ -9,6 +9,8 @@ use Livewire\Component;
 
 class Home extends Component
 {
+    protected $listeners = ['reload', '$refresh'];
+
     public function render()
     {
         return view('livewire.pages.home', [

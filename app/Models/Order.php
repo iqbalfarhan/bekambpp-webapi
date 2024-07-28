@@ -14,7 +14,7 @@ class Order extends Model
         'sesi_id',
         'user_id',
         'paket_id',
-        'approved',
+        'status',
     ];
 
     public $casts = [
@@ -33,12 +33,14 @@ class Order extends Model
         return $this->belongsTo(Paket::class);
     }
 
-    public function getStatusAttribute(){
-        if (is_null($this->approved)) {
-            return '-';
-        }
+    public function getStatusTextAttribute(){
+        $result = match ($this->status) {
+            'approved' => 'Diterima',
+            'done' => 'Selesai',
+            default => 'Menunggu',
+        };
 
-        return $this->approved ? 'Disetujui' : 'Ditolak';
+        return $result;
     }
 
 }

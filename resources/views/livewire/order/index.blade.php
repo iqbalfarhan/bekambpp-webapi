@@ -4,6 +4,10 @@
         'subtitle' => 'List customer yang sudah order sesi bekam',
     ])
 
+    <div class="flex justify-between">
+        <input type="date" class="input" wire:model.live="tanggal">
+    </div>
+
     <div class="table-wrapper">
         <table class="table">
             <thead>
@@ -23,14 +27,41 @@
                         <td>{{ $data->sesi->jam_text }}</td>
                         <td>{{ $data->user->name }}</td>
                         <td>{{ $data->user->phone }}</td>
-                        <td>{{ $data->status }}</td>
+                        <td>
+                            <span class="btn btn-xs">
+                                {{ $data->status_text }}
+                            </span>
+                        </td>
                         <td>
                             <div class="flex gap-1 justify-center">
-                                <button class="btn btn-sm btn-primary" wire:click="dispatch('approveOrder')">
-                                    <x-tabler-star class="size-4" />
-                                    <span>Approve</span>
-                                </button>
-                                <button class="btn btn-sm btn-error btn-square">
+                                @switch($data->status)
+                                    @case('requested')
+                                        <button class="btn btn-sm btn-primary"
+                                            wire:click="dispatch('approveOrder', {order: {{ $data->id }}})">
+                                            <x-tabler-check class="size-4" />
+                                            <span>Approve</span>
+                                        </button>
+                                    @break
+
+                                    @case('approved')
+                                        <button class="btn btn-sm btn-success"
+                                            wire:click="dispatch('selesaiOrder', {order: {{ $data->id }}})">
+                                            <x-tabler-check class="size-4" />
+                                            <span>Selesai</span>
+                                        </button>
+                                    @break
+
+                                    @default
+                                        <button class="btn btn-sm"
+                                            wire:click="dispatch('kembalikanOrder', {order: {{ $data->id }}})">
+                                            <x-tabler-chevron-left class="size-4" />
+                                            <span>Kembalikan</span>
+                                        </button>
+                                @endswitch
+
+
+                                <button class="btn btn-sm btn-error btn-square"
+                                    wire:click="dispatch('deleteOrder', {order: {{ $data->id }}})">
                                     <x-tabler-trash class="size-4" />
                                 </button>
                             </div>
