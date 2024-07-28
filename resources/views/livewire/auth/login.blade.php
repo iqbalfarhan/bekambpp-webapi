@@ -12,7 +12,7 @@
                 'input-error' => $errors->first('email'),
             ])>
                 <x-tabler-at class="size-6" />
-                <input type="email" class="grow" placeholder="Email" wire:model="email" />
+                <input type="email" class="grow" placeholder="Email address" wire:model="email" />
             </label>
 
             <label @class([
@@ -20,7 +20,7 @@
                 'input-error' => $errors->first('password'),
             ])>
                 <x-tabler-key class="size-6" />
-                <input type="password" class="grow" placeholder="Email" wire:model="password" />
+                <input type="password" class="grow" placeholder="Password" wire:model="password" />
             </label>
 
             @if ($errors->any())
