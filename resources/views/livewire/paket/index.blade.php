@@ -12,7 +12,7 @@
         </button>
     </div>
 
-    <div class="grid grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-3 gap-3">
         @foreach ($pakets as $paket)
             <div wire:key="{{ $paket->id }}" wire:click="$dispatch('editPaket', {paket: {{ $paket->id }}})">
                 @livewire('paket.card', ['paket' => $paket], key($paket->id))
