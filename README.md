@@ -127,24 +127,11 @@
 Berikut adalah beberapa endpoint yang digunakan dalam aplikasi ini:
 
 - **POST /api/login**: Untuk login admin.
-- **GET /api/orders**: Untuk mendapatkan daftar order.
-- **PUT /api/orders/{id}/approve**: Untuk approve order.
-- **PUT /api/orders/{id}/reject**: Untuk reject order.
-- **GET /api/users**: Untuk mendapatkan daftar user.
-- **POST /api/users**: Untuk menambah user baru.
-- **PUT /api/users/{id}**: Untuk mengedit user.
-- **DELETE /api/users/{id}**: Untuk menghapus user.
-- **GET /api/sesis**: Untuk mendapatkan daftar sesi.
-- **POST /api/sesis**: Untuk menambah sesi baru.
-- **PUT /api/sesis/{id}**: Untuk mengedit sesi.
-- **DELETE /api/sesis/{id}**: Untuk menghapus sesi.
-- **GET /api/pakets**: Untuk mendapatkan daftar paket.
-- **POST /api/pakets**: Untuk menambah paket baru.
-- **PUT /api/pakets/{id}**: Untuk mengedit paket.
-- **DELETE /api/pakets/{id}**: Untuk menghapus paket.
-- **GET /api/profile**: Untuk mendapatkan data profil admin.
-- **PUT /api/profile**: Untuk mengedit profil admin.
-- **GET /api/users/{id}/riwayat**: Untuk mendapatkan riwayat bekam user.
+- **GET /api/user**: Untuk mengambil data user yang login.
+- **POST /api/order**: Untuk mengirimkan data order.
+- **GET /api/order**: Untuk mengambil riwayat bekam user.
+- **GET /api/paket**: Untuk mengambil data paket yang tersedia.
+- **GET /api/sesi**: Untuk mengambil data sesi yang tersedia.
 
 ## Panduan Instalasi
 
