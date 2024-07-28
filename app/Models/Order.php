@@ -17,6 +17,10 @@ class Order extends Model
         'approved',
     ];
 
+    public $casts = [
+        'tanggal' => 'date',
+    ];
+
     public function sesi(){
         return $this->belongsTo(Sesi::class);
     }
@@ -27,6 +31,14 @@ class Order extends Model
 
     public function paket(){
         return $this->belongsTo(Paket::class);
+    }
+
+    public function getStatusAttribute(){
+        if (is_null($this->approved)) {
+            return ' - ';
+        }
+
+        return $this->approved ? 'Disetujui' : 'Ditolak';
     }
 
 }

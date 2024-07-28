@@ -13,7 +13,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Order::get());
     }
 
     /**
@@ -30,8 +30,9 @@ class OrderController extends Controller
 
         Order::updateOrCreate([
             'tanggal' => $request->tanggal,
-            'sesi_id' => $request->sesi_id,
             'user_id' => $request->user_id,
+        ],[
+            'sesi_id' => $request->sesi_id,
             'paket_id' => $request->paket_id,
         ]);
 

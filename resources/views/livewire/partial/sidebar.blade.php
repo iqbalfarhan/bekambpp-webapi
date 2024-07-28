@@ -15,14 +15,14 @@
         <ul>
             <li>
                 <a href="{{ route('home') }}" @class(['active' => Route::is('home')])>
-                    <x-tabler-dashboard />
+                    <x-tabler-home />
                     <span>Dashboard</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('order.index') }}" @class(['active' => Route::is('order.index')])>
-                    <x-tabler-calendar />
-                    <span>Sesi bekam hari ini</span>
+                    <x-tabler-list-check />
+                    <span>Order Sesi</span>
                 </a>
             </li>
         </ul>
@@ -44,7 +44,7 @@
             </li>
             <li>
                 <a href="{{ route('user.index') }}" @class(['active' => Route::is(['user.index', 'user.show'])])>
-                    <x-tabler-users />
+                    <x-tabler-user-circle />
                     <span>Pengaturan User</span>
                 </a>
             </li>

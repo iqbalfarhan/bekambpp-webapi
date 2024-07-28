@@ -13,6 +13,23 @@ class PaketSeeder extends Seeder
      */
     public function run(): void
     {
-        Paket::factory(2)->create();
+        $lists = [
+            [
+                'name' => 'Bekam kering',
+                'harga' => 150000,
+                'keterangan' => 'Metode tanpa sayatan, menggunakan tekanan vakum untuk meningkatkan aliran darah.'
+            ],
+            [
+                'name' => 'Bekam basah',
+                'harga' => 200000,
+                'keterangan' => 'Metode dengan sayatan kecil untuk mengeluarkan darah dan racun, serta menggunakan tekanan vakum.'
+            ]
+        ];
+
+        foreach ($lists as $paket) {
+            Paket::updateOrCreate([
+                "name" => $paket['name']
+            ], $paket);
+        }
     }
 }

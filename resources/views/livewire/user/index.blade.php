@@ -18,7 +18,7 @@
                 <th>ID</th>
                 <th>Nama user</th>
                 <th>Email</th>
-                <th>Phone</th>
+                <th>Nomor telepon</th>
                 <th>Alamat</th>
                 <th class="text-center">Actions</th>
             </thead>

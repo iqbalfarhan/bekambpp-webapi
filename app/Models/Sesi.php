@@ -34,4 +34,8 @@ class Sesi extends Model
         $selisihMenit = $selisihDetik / 60;
         return $selisihMenit . " menit";
     }
+
+    public function getJamTextAttribute(){
+        return implode(" - ", $this->jam);
+    }
 }

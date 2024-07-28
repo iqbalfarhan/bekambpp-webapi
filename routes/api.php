@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\SesiController;
+use App\Http\Controllers\API\PaketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('order', [OrderController::class, 'store']);
+Route::get('/order', [OrderController::class, 'index']);
+Route::post('/order', [OrderController::class, 'store']);
+Route::get('/sesi', [SesiController::class, 'index']);
+Route::get('/paket', [PaketController::class, 'index']);

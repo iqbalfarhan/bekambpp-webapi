@@ -12,10 +12,12 @@
                 @endisset
             </div>
             <div class="py-4 space-y-2">
-                <div class="avatar" onclick="document.getElementById('pickphoto').click()">
-                    <div class="w-24 rounded-full bg-base-200">
-                        <img src="{{ $photo ? $photo->temporaryUrl() : $form->paket->image ?? url('noimage.png') }}"
-                            alt="">
+                <div class="flex justify-center items-center">
+                    <div class="avatar" onclick="document.getElementById('pickphoto').click()">
+                        <div class="w-24 rounded-xl bg-base-200">
+                            <img src="{{ $photo ? $photo->temporaryUrl() : $form->paket->image ?? url('noimage.png') }}"
+                                alt="">
+                        </div>
                     </div>
                 </div>
                 <input type="file" id="pickphoto" wire:model="photo" class="hidden">
@@ -37,10 +39,11 @@
                     <div class="label">
                         <span class="label-text">Keterangan</span>
                     </div>
-                    <textarea type="text" placeholder="Keterangan paket" @class([
+                    <textarea type="text" placeholder="Keterangan paket" rows="5" @class([
                         'textarea',
                         'textarea-error' => $errors->first('form.keterangan'),
-                    ]) wire:model="form.keterangan"></textarea>
+                    ])
+                        wire:model="form.keterangan"></textarea>
                 </label>
             </div>
             <div class="modal-action justify-between">
