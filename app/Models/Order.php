@@ -35,7 +35,7 @@ class Order extends Model
 
     public function getStatusAttribute(){
         if (is_null($this->approved)) {
-            return ' - ';
+            return '-';
         }
 
         return $this->approved ? 'Disetujui' : 'Ditolak';

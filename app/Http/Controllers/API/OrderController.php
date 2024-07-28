@@ -3,17 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Order::get());
+        $user = Auth::user();
+        $datas = OrderResource::collection(Order::where('user_id', $user->id)->get());
+        return response()->json($datas);
     }
 
     /**
@@ -28,7 +32,7 @@ class OrderController extends Controller
             'paket_id' => 'required',
         ]);
 
-        Order::updateOrCreate([
+        $order = Order::updateOrCreate([
             'tanggal' => $request->tanggal,
             'user_id' => $request->user_id,
         ],[
@@ -38,6 +42,7 @@ class OrderController extends Controller
 
         return response()->json([
             'message' => 'Order berhasil disimpan',
+            'data' => Order::with('user', 'sesi', 'paket')->find($order->id)
         ], 200);
     }
 
