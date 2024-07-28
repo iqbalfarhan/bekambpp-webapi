@@ -8,8 +8,10 @@
         <a class="btn btn-ghost text-xl text-primary font-bold">{{ config('app.name') }}</a>
     </div>
     <div class="navbar-end">
-        <a href="{{ route('profile') }}" class="btn btn-ghost btn-circle">
-            <x-tabler-user-circle class="size-7" />
+        <a href="{{ route('profile') }}" class="btn btn-circle avatar">
+            <div class="w-10 rounded-full">
+                <img alt="{{ $user->name }}" src="{{ $user->image_url }}" />
+            </div>
         </a>
     </div>
 </div>

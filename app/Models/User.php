@@ -48,6 +48,6 @@ class User extends Authenticatable
     ];
 
     public function getImageUrlAttribute(){
-        return $this->photo ? Storage::url($this->photo) : "https://robohash.org/{$this->name}";
+        return $this->photo ? Storage::url($this->photo) : url('logoimage.png');
     }
 }
