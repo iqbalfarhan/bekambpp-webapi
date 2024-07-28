@@ -19,9 +19,18 @@
                 'input flex items-center gap-2',
                 'input-error' => $errors->first('password'),
             ])>
-                <x-tabler-key class="size-6" />
-                <input type="password" class="grow" placeholder="Password" wire:model="password" />
+                <x-tabler-key class="flex-none size-6" />
+                <input type="{{ $showPass ? 'text' : 'password' }}" class="" placeholder="Password"
+                    wire:model="password" />
             </label>
+
+            <div class="form-control">
+                <label class="label cursor-pointer justify-start gap-2">
+                    <input type="checkbox" checked="checked" class="checkbox checkbox-sm checkbox-primary"
+                        wire:model.live="showPass" />
+                    <span class="label-text">Tampilkan password</span>
+                </label>
+            </div>
 
             @if ($errors->any())
                 <div class="text-error text-xs flex flex-col">

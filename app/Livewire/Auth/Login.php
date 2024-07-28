@@ -9,6 +9,11 @@ class Login extends Component
 {
     public $email = "";
     public $password = "";
+    public $showPass = false;
+
+    public function toggleShowPass(){
+        $this->showPass != $this->showPass;
+    }
 
     public function login()
     {

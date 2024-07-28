@@ -53,6 +53,18 @@
                         <input type="text" placeholder="Alamat rumah" class="grow" wire:model="form.address" />
                     </label>
                 </div>
+                <div class="form-control">
+                    <div class="label">
+                        <span class="label-text">Password</span>
+                    </div>
+                    <label @class([
+                        'input flex items-center gap-2',
+                        'input-error' => $errors->first('form.password'),
+                    ])>
+                        <x-tabler-key />
+                        <input type="text" placeholder="Password" class="grow" wire:model="form.password" />
+                    </label>
+                </div>
             </div>
             <div class="modal-action justify-between">
                 <button wire:click="closeModal" type="button" class="btn btn-ghost">Close</button>
