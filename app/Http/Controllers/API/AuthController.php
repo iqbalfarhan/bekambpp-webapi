@@ -43,7 +43,7 @@ class AuthController extends Controller
         $user = auth()->user();
 
         $valid = $request->validate([
-            'name' => 'required',
+            'name' => '',
             'email' => 'required',
             'phone' => '',
             'address' => '',
