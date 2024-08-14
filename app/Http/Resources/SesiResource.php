@@ -18,6 +18,8 @@ class SesiResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'jam' => $this->jam_text,
+            'booked' => $this->booked,
+            'durasi' => $this->durasi,
             'keterangan' => $this->keterangan,
         ];
     }

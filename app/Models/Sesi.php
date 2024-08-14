@@ -35,7 +35,18 @@ class Sesi extends Model
         return $selisihMenit . " menit";
     }
 
-    public function getJamTextAttribute(){
+    public function getJamTextAttribute()
+    {
         return implode(" - ", $this->jam);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function getBookedAttribute(): bool
+    {
+        return $this->orders->where('tanggal', today())->first() ? true : false;
     }
 }

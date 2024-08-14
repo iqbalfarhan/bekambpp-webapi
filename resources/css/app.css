@@ -6,7 +6,7 @@
 
 @layer base {
   html {
-    @apply font-montserrat font-semibold scrollbar-hide lg:text-lg;
+    @apply font-montserrat font-semibold scrollbar-hide;
   }
   body {
     @apply bg-base-100;

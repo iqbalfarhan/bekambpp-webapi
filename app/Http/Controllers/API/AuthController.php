@@ -39,6 +39,24 @@ class AuthController extends Controller
         return response()->json(Auth::user());
     }
 
+    public function profile(Request $request){
+        $user = auth()->user();
+
+        $valid = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => '',
+            'address' => '',
+        ]);
+
+        if ($request->password) {
+            $valid['password'] =  $request->password;
+        }
+
+        $user->update($valid);
+        return response()->json(Auth::user());
+    }
+
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logged out successfully']);
