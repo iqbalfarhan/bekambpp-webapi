@@ -36,7 +36,7 @@ class AuthController extends Controller
     }
 
     public function me(){
-        return response()->json(Auth::user());
+        return response()->json(new UserResource(Auth::user()));
     }
 
     public function profile(Request $request){
@@ -54,7 +54,7 @@ class AuthController extends Controller
         }
 
         $user->update($valid);
-        return response()->json(Auth::user());
+        return response()->json(new UserResource($user));
     }
 
     public function logout(Request $request){
