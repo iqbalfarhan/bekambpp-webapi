@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +42,15 @@ class Order extends Model
         };
 
         return $result;
+    }
+
+    public function scopeByTanggal(Builder $query, $tanggal = null)
+    {
+        return $query->when($tanggal, function ($query, $tanggal) {
+            return $query->where('tanggal', $tanggal);
+        }, function ($query) {
+            return $query->where('tanggal', today()->toDateString());
+        });
     }
 
 }

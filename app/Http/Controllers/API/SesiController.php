@@ -9,21 +9,21 @@ use Illuminate\Http\Request;
 
 class SesiController extends Controller
 {
-    public function index(Request $request){
-        $tanggal = $request->tanggal;
+    public function index(Request $request)
+    {
+        try {
+            $tanggal = $request->input('tanggal');
+            $sesiCollection = Sesi::whereHas('orders', function ($query) use ($tanggal) {
+                $query->byTanggal($tanggal);
+            })->get();
+            $data = SesiResource::collection($sesiCollection);
+            return response()->json($data, 200);
 
-        $data = SesiResource::collection(
-            Sesi::when($tanggal, function($query, $tanggal) {
-                $query->whereHas('orders', function($q) use ($tanggal) {
-                    $q->where('tanggal', $tanggal);
-                });
-            }, function($query) {
-                $query->whereHas('orders', function($q) {
-                    $q->where('tanggal', today()->toDateString());
-                });
-            })->get()
-        );
-
-        return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data sesi.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

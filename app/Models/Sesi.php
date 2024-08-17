@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,14 +46,20 @@ class Sesi extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function getBookedAttribute($tanggal= null): bool
+    public function getBookedAttribute($tanggal = null): bool
     {
-        return $this->orders
-        ->when($tanggal, function ($query, $tanggal) {
+        if (!$tanggal) {
+            $tanggal = today();
+        }
+        return $this->orders()->byTanggal($tanggal)->exists();
+    }
+
+    public function scopeByTanggal($query, $tanggal = null)
+    {
+        return $query->when($tanggal, function ($query, $tanggal) {
             return $query->where('tanggal', $tanggal);
         }, function ($query) {
             return $query->where('tanggal', today()->toDateString());
-        })
-        ->isNotEmpty();
+        });
     }
 }

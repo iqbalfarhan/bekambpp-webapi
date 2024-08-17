@@ -28,5 +28,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/paket', [PaketController::class, 'index']);
 });
 
+
 Route::post('/login', [AuthController::class, 'login']);
 
