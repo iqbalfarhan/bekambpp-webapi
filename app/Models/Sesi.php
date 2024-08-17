@@ -53,6 +53,6 @@ class Sesi extends Model
         }, function ($query) {
             return $query->where('tanggal', today()->toDateString());
         })
-        ->exists();
+        ->isNotEmpty();
     }
 }
