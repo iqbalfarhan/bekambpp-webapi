@@ -22,8 +22,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', [AuthController::class, 'me']);
     Route::post('/user', [AuthController::class, 'profile']);
     Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/order', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
+    Route::get('/order', [OrderController::class, 'index']);
     Route::get('/sesi', [SesiController::class, 'index']);
     Route::get('/paket', [PaketController::class, 'index']);
 });
