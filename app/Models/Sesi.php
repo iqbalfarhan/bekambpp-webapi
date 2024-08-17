@@ -45,8 +45,14 @@ class Sesi extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function getBookedAttribute(): bool
+    public function getBookedAttribute($tanggal= null): bool
     {
-        return $this->orders->where('tanggal', today())->first() ? true : false;
+        return $this->orders
+        ->when($tanggal, function ($query, $tanggal) {
+            return $query->where('tanggal', $tanggal);
+        }, function ($query) {
+            return $query->where('tanggal', today()->toDateString());
+        })
+        ->exists();
     }
 }

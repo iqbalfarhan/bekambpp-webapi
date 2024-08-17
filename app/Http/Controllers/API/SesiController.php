@@ -9,8 +9,21 @@ use Illuminate\Http\Request;
 
 class SesiController extends Controller
 {
-    public function index(){
-        $data = SesiResource::collection(Sesi::get());
+    public function index(Request $request){
+        $tanggal = $request->tanggal;
+
+        $data = SesiResource::collection(
+            Sesi::when($tanggal, function($query, $tanggal) {
+                $query->whereHas('orders', function($q) use ($tanggal) {
+                    $q->where('tanggal', $tanggal);
+                });
+            }, function($query) {
+                $query->whereHas('orders', function($q) {
+                    $q->where('tanggal', today()->toDateString());
+                });
+            })->get()
+        );
+
         return response()->json($data);
     }
 }
