@@ -25,19 +25,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Auth::id();
         $request->validate([
             'tanggal' => 'required',
             'sesi_id' => 'required',
-            'user_id' => 'required',
             'paket_id' => 'required',
+            'keterangan' => '',
         ]);
 
         $order = Order::updateOrCreate([
             'tanggal' => $request->tanggal,
-            'user_id' => $request->user_id,
+            'user_id' => $user_id,
         ],[
             'sesi_id' => $request->sesi_id,
             'paket_id' => $request->paket_id,
+            'keterangan' => $request->keterangan,
         ]);
 
         return response()->json([

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('sesi_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('paket_id')->constrained()->onDelete('cascade');
+            $table->text('keterangan')->nullable();
             $table->enum('status', ['requested', 'approved', 'done'])->default("requested");
             $table->timestamps();
         });
