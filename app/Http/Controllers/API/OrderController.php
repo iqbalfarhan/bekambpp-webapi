@@ -27,6 +27,21 @@ class OrderController extends Controller
         }
     }
 
+    public function showBySesiAndTanggal(Sesi $sesi, $tanggal)
+    {
+        $user = Auth::user();
+        try {
+            $orders = Order::where('sesi_id', $sesi->id)->where('user_id', $user->id)->byTanggal($tanggal)->get();
+            $datas = OrderResource::collection($orders);
+            return response()->json($datas);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data sesi.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function store(Request $request)
     {
         $user_id = Auth::id();

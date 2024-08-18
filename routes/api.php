@@ -25,9 +25,11 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::post('/order', [OrderController::class, 'store']);
     Route::get('/order', [OrderController::class, 'index']);
+    Route::get('/order/{sesi}/{tanggal}', [OrderController::class, 'showBySesiAndTanggal']);
 
     Route::get('/sesi', [SesiController::class, 'index']);
     Route::get('/sesi/{sesi}', [SesiController::class, 'show']);
+
     Route::get('/paket', [PaketController::class, 'index']);
 });
 

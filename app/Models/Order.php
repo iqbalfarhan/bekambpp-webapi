@@ -15,6 +15,7 @@ class Order extends Model
         'sesi_id',
         'user_id',
         'paket_id',
+        'keterangan',
         'status',
     ];
 
