@@ -10,7 +10,14 @@ use Illuminate\Http\Request;
 class PaketController extends Controller
 {
     public function index(){
-        $datas = PaketResource::collection(Paket::get());
-        return response()->json($datas);
+        try {
+            $datas = PaketResource::collection(Paket::get());
+            return response()->json($datas);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data sesi.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

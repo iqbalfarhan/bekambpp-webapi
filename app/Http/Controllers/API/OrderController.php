@@ -7,68 +7,55 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $user = Auth::user();
-        $datas = OrderResource::collection(Order::where('user_id', $user->id)->get());
-        return response()->json($datas);
+
+        try {
+            $datas = OrderResource::collection(Order::where('user_id', $user->id)->get());
+            return response()->json($datas);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data sesi.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $user_id = Auth::id();
         $request->validate([
-            'tanggal' => 'required',
+            'tanggal' => [
+                'required',
+                Rule::unique('orders')->where(function ($query) use ($user_id, $request) {
+                    return $query->where('user_id', $user_id)->where('sesi_id', $request->sesi_id);
+                })
+            ],
             'sesi_id' => 'required',
             'paket_id' => 'required',
             'keterangan' => '',
         ]);
 
-        $order = Order::updateOrCreate([
-            'tanggal' => $request->tanggal,
-            'user_id' => $user_id,
-        ],[
-            'sesi_id' => $request->sesi_id,
-            'paket_id' => $request->paket_id,
-            'keterangan' => $request->keterangan,
-        ]);
-
-        return response()->json([
-            'message' => 'Order berhasil disimpan',
-            'data' => Order::with('user', 'sesi', 'paket')->find($order->id)
-        ], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        try {
+            $order = Order::updateOrCreate([
+                'tanggal' => $request->tanggal,
+                'user_id' => $user_id,
+            ],[
+                'sesi_id' => $request->sesi_id,
+                'paket_id' => $request->paket_id,
+                'keterangan' => $request->keterangan,
+            ]);
+            return response()->json(Order::with('user', 'sesi', 'paket')->find($order->id));
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data sesi.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

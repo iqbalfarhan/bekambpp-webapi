@@ -19,7 +19,6 @@ class AuthController extends Controller
         if (Auth::attempt($valid)) {
             $user = Auth::user();
             $token = $user->createToken('auth_token')->plainTextToken;
-
             $data = new UserResource($user);
 
             return response()->json([
@@ -32,11 +31,17 @@ class AuthController extends Controller
                 'message' => 'Invalid credentials'
             ], 401);
         }
-
     }
 
     public function me(){
-        return response()->json(new UserResource(Auth::user()));
+        try {
+            return response()->json(new UserResource(Auth::user()));
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data user.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function profile(Request $request){
@@ -49,12 +54,18 @@ class AuthController extends Controller
             'address' => '',
         ]);
 
-        if ($request->password) {
-            $valid['password'] =  $request->password;
+        try {
+            if ($request->password) {
+                $valid['password'] =  $request->password;
+            }
+            $user->update($valid);
+            return response()->json(new UserResource($user));
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data user.',
+                'message' => $e->getMessage()
+            ], 500);
         }
-
-        $user->update($valid);
-        return response()->json(new UserResource($user));
     }
 
     public function logout(Request $request){
