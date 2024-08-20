@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,6 +59,25 @@ class AuthController extends Controller
                 $valid['password'] =  $request->password;
             }
             $user->update($valid);
+            return response()->json(new UserResource($user));
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data user.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function register(Request $request)
+    {
+        $valid = $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+        ]);
+
+        try {
+            $user = User::create($valid);
             return response()->json(new UserResource($user));
         } catch (\Exception $e) {
             return response()->json([
