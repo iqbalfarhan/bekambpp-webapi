@@ -22,6 +22,8 @@ class Login extends Component
             'password' => 'required',
         ]);
 
+        $valid["is_admin"] = true;
+
         if (Auth::attempt($valid)) {
             $this->redirect(route('home'));
         }
