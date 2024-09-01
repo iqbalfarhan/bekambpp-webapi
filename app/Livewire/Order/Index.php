@@ -20,7 +20,7 @@ class Index extends Component
         return view('livewire.order.index', [
             'datas' => Order::when($this->tanggal, function($q){
                 return $q->where('tanggal', $this->tanggal);
-            })->where('tanggal', today())->get()
+            })->get()
         ]);
     }
 }
