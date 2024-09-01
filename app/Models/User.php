@@ -47,7 +47,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getImageUrlAttribute(){
+    public function getImageUrlAttribute()
+    {
+        if ($this->photo && filter_var($this->photo, FILTER_VALIDATE_URL)) {
+            return $this->photo;
+        }
         return $this->photo ? Storage::url($this->photo) : url('logoimage.png');
     }
 }

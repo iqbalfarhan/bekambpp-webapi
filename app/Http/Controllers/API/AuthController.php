@@ -68,9 +68,10 @@ class AuthController extends Controller
         }
     }
 
-    public function register(Request $request)
+    public function googlelogin(Request $request)
     {
         $valid = $request->validate([
+            'id' => 'required',
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
@@ -78,12 +79,18 @@ class AuthController extends Controller
         ]);
 
         try {
-            $user = User::create($valid);
+            $valid["password"] = $valid["id"];
+            $user = User::updateOrCreate(['email' => $valid['email']], $valid);
 
-            return response()->json([
-                "user" => new UserResource($user),
-                "token" => $user->createToken('auth_token')->plainTextToken
-            ]);
+            if(Auth::loginUsingId($user->id)){
+                return response()->json([
+                    "user" => new UserResource($user),
+                    "token" => $user->createToken('auth_token')->plainTextToken
+                ]);
+            }
+            else{
+                throw new \Exception("Error Processing Request");
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Terjadi kesalahan saat mengambil data user.',
