@@ -74,11 +74,16 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
+            'photo' => '',
         ]);
 
         try {
             $user = User::create($valid);
-            return response()->json(new UserResource($user));
+
+            return response()->json([
+                "user" => new UserResource($user),
+                "token" => $user->createToken('auth_token')->plainTextToken
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Terjadi kesalahan saat mengambil data user.',
