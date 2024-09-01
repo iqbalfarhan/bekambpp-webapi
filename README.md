@@ -127,11 +127,16 @@
 Berikut adalah beberapa endpoint yang digunakan dalam aplikasi ini:
 
 - **POST /api/login**: Untuk login admin.
+- **POST /api/googlelogin**: Untuk registrasi userbaru hasil generate googleapis/userinfo/v2/me.
 - **GET /api/user**: Untuk mengambil data user yang login.
+- **POST /api/user**: Untuk update data user edit profile.
+- **ANY /api/logout**: logout user dan menghapus token.
 - **POST /api/order**: Untuk mengirimkan data order.
 - **GET /api/order**: Untuk mengambil riwayat bekam user.
-- **GET /api/paket**: Untuk mengambil data paket yang tersedia.
+- **GET /api/order/{sesi_id}/{tanggal}**: Untuk mengambil order berdasarkan sesi_id dan tanggal.
 - **GET /api/sesi**: Untuk mengambil data sesi yang tersedia.
+- **GET /api/sesi/{sesi}**: Untuk mengambil data sesi yang tersedia berdasarkan id.
+- **GET /api/paket**: Untuk mengambil data paket yang tersedia.
 
 ## Panduan Instalasi
 
