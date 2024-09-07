@@ -37,14 +37,16 @@ class AuthController extends Controller
     public function register(Request $request){
         $valid = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'photo' => '',
             'address' => '',
             'phone' => '',
             'google_id' => '',
         ]);
 
-        $newUser = User::create($valid);
+        $newUser = User::updateOrCreate([
+            'email' => $valid['email'],
+        ], $valid);
 
         if (Auth::loginUsingId($newUser->id)) {
             $user = Auth::user();
