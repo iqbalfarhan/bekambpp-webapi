@@ -86,12 +86,10 @@ class AuthController extends Controller
             'photo' => $googleUser->getAvatar(),
         ]);
 
-        dd($user);
-
         // Auth::login($user);
         // return redirect('/dashboard');
 
-        if (Auth::login($user)) {
+        if (Auth::loginUsingId($user->id)) {
             $token = $user->createToken('auth_token')->plainTextToken;
             $data = new UserResource($user);
 
