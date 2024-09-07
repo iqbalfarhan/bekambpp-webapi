@@ -34,6 +34,35 @@ class AuthController extends Controller
             ], 401);
         }
     }
+    public function register(Request $request){
+        $valid = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'photo' => '',
+            'address' => '',
+            'phone' => '',
+            'google_id' => '',
+        ]);
+
+        $newUser = User::create($valid);
+
+        if (Auth::loginUsingId($newUser)) {
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
+            $data = new UserResource($user);
+
+            return response()->json([
+                'user' => $data,
+                'token' => $token
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
+    }
 
     public function me(){
         try {

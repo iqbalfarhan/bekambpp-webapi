@@ -35,4 +35,5 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::middleware('web')->get('/googlelogin', [AuthController::class, 'googlelogin']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 
