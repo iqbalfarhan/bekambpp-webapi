@@ -37,7 +37,7 @@ class AuthController extends Controller
     public function register(Request $request){
         $valid = $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'photo' => '',
             'address' => '',
             'phone' => '',
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         $newUser = User::create($valid);
 
-        if (Auth::loginUsingId($newUser)) {
+        if (Auth::loginUsingId($newUser->id)) {
             $user = Auth::user();
             $token = $user->createToken('auth_token')->plainTextToken;
             $data = new UserResource($user);
