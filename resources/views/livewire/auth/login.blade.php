@@ -46,7 +46,6 @@
                 <x-tabler-login class="size-5" />
                 <span>Login</span>
             </button>
-            <a href="{{ route('googleredirect') }}" class="btn">login dengan google</a>
         </div>
     </form>
 </div>

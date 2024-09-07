@@ -86,19 +86,10 @@ class AuthController extends Controller
             'photo' => $googleUser->getAvatar(),
         ]);
 
-        // Auth::login($user);
-        // return redirect('/dashboard');
-
         if (Auth::loginUsingId($user->id)) {
             $token = $user->createToken('auth_token')->plainTextToken;
-            $data = new UserResource($user);
-
-            return response()->json([
-                'user' => $data,
-                'token' => $token
-            ]);
-        }
-        else{
+            return redirect()->to("bekambalikpapan://auth?token={$token}");
+        } else {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 401);
