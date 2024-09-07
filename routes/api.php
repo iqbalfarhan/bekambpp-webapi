@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', [AuthController::class, 'me']);
-    Route::post('/user', [AuthController::class, 'profile']);
+    Route::put('/user', [AuthController::class, 'profile']);
     Route::any('/logout', [AuthController::class, 'logout']);
 
     Route::post('/order', [OrderController::class, 'store']);

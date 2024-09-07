@@ -23,6 +23,7 @@ class OrderResource extends JsonResource
             'user' => new UserResource(User::findOrFail($this->user_id)),
             'sesi' => new SesiResource(Sesi::findOrFail($this->sesi_id)),
             'paket' => new PaketResource(Paket::findOrFail($this->paket_id)),
+            'created_at' => $this->created_at,
             'keterangan' => $this->keterangan,
             'status' => $this->status,
         ];
