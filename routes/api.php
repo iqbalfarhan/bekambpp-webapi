@@ -33,7 +33,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/paket', [PaketController::class, 'index']);
 });
 
-
-Route::post('/googlelogin', [AuthController::class, 'googlelogin']);
+Route::middleware('web')->get('/googlelogin', [AuthController::class, 'googlelogin']);
 Route::post('/login', [AuthController::class, 'login']);
 

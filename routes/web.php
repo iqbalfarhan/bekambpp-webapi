@@ -31,4 +31,5 @@ Route::middleware('auth')->group(function(){
 Route::middleware('guest')->group(function(){
     Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
     Route::get('/register', \App\Livewire\Auth\Register::class)->name('register');
+    Route::get('/googleredirect', [\App\Http\Controllers\API\AuthController::class, 'googleredirect'])->name('googleredirect');
 });

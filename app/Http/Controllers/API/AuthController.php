@@ -7,6 +7,8 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AuthController extends Controller
 {
@@ -68,34 +70,40 @@ class AuthController extends Controller
         }
     }
 
-    public function googlelogin(Request $request)
+    public function googleredirect()
     {
-        $valid = $request->validate([
-            'id' => 'required',
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required',
-            'photo' => '',
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googlelogin()
+    {
+        $googleUser = Socialite::driver('google')->user();
+        $user = User::updateOrCreate([
+            'email' => $googleUser->email,
+        ], [
+            'google_id' => $googleUser->getId(),
+            'name' => $googleUser->getName(),
+            'photo' => $googleUser->getAvatar(),
         ]);
 
-        try {
-            $valid["password"] = $valid["id"];
-            $user = User::updateOrCreate(['email' => $valid['email']], $valid);
+        dd($user);
 
-            if(Auth::loginUsingId($user->id)){
-                return response()->json([
-                    "user" => new UserResource($user),
-                    "token" => $user->createToken('auth_token')->plainTextToken
-                ]);
-            }
-            else{
-                throw new \Exception("Error Processing Request");
-            }
-        } catch (\Exception $e) {
+        // Auth::login($user);
+        // return redirect('/dashboard');
+
+        if (Auth::login($user)) {
+            $token = $user->createToken('auth_token')->plainTextToken;
+            $data = new UserResource($user);
+
             return response()->json([
-                'error' => 'Terjadi kesalahan saat mengambil data user.',
-                'message' => $e->getMessage()
-            ], 500);
+                'user' => $data,
+                'token' => $token
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
         }
     }
 

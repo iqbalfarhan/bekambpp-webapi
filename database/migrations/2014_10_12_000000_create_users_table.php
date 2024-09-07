@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('address')->nullable();
             $table->boolean('is_admin')->default(false);
+            $table->string('google_id')->nullable();
             $table->timestamps();
         });
     }
