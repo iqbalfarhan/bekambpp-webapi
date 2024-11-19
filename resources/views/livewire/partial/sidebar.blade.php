@@ -7,7 +7,7 @@
         </div>
         <div class="flex-1 flex flex-col">
             <h2 class="text-primary text-lg font-bold">{{ config('app.name') }}</h2>
-            <div class="text-xs">Aplikasi booking sesi terapi</div>
+            <div class="text-xs">{{ env('APP_TAGLINE', 'Aplikasi booking sesi terapi') }}</div>
         </div>
     </div>
     <li>
