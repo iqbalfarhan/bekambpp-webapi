@@ -10,7 +10,7 @@ class SesiForm extends Form
 {
     public $order;
     public $name;
-    public $jam = ['00:00', "00:00"];
+    public $jam;
     public $keterangan;
     public ?Sesi $sesi;
 
@@ -19,7 +19,7 @@ class SesiForm extends Form
 
         $this->order = $sesi->order;
         $this->name = $sesi->name;
-        $this->jam = implode(" - ", $sesi->jam);
+        $this->jam = implode("-", $sesi->jam);
         $this->keterangan = $sesi->keterangan;
     }
 
@@ -34,6 +34,8 @@ class SesiForm extends Form
             $valid['jam']  = explode(',', trim($this->jam));
         }
         Sesi::create($valid);
+
+        $this->reset();
     }
 
     public function update(){
@@ -44,8 +46,9 @@ class SesiForm extends Form
             'keterangan' => 'required'
         ]);
         if($this->jam){
-            $valid['jam']  = explode('-', trim($this->jam));
+            $valid['jam']  = explode('-', preg_replace('/\s+/', ' ', $this->jam));
         }
         $this->sesi->update($valid);
+        $this->reset();
     }
 }

@@ -24,6 +24,7 @@ class Actions extends Component
     #[On('createSesi')]
     public function createSesi()
     {
+        $this->form->jam = "00:00 - 00:00";
         $this->show = true;
     }
 
@@ -44,6 +45,7 @@ class Actions extends Component
     {
         $this->reset('show');
         $this->dispatch('reload');
+        $this->form->reset();
     }
 
     public function simpan()
