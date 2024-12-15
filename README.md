@@ -156,9 +156,10 @@ Berikut adalah beberapa endpoint yang digunakan dalam aplikasi ini:
 
 3. **Konfigurasi Environment**
 
-   Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database dan lainnya.
-
    ```sh
+   // Salin file .env.example menjadi .env dan sesuaikan konfigurasi database dan lainnya.
+   cp .env.example .env
+
    // membuat key untuk laravel
    php artisan key:generate
 
