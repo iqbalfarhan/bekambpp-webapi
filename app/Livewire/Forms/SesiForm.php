@@ -19,9 +19,10 @@ class SesiForm extends Form
 
         $this->order = $sesi->order;
         $this->name = $sesi->name;
-        $this->jam = $sesi->jam;
+        $this->jam = implode(" - ", $sesi->jam);
         $this->keterangan = $sesi->keterangan;
     }
+
     public function store(){
         $valid = $this->validate([
             'order' => 'required',
@@ -29,6 +30,9 @@ class SesiForm extends Form
             'jam' => 'required',
             'keterangan' => 'required'
         ]);
+        if($this->jam){
+            $valid['jam']  = explode(',', trim($this->jam));
+        }
         Sesi::create($valid);
     }
 
@@ -39,6 +43,9 @@ class SesiForm extends Form
             'jam' => 'required',
             'keterangan' => 'required'
         ]);
+        if($this->jam){
+            $valid['jam']  = explode('-', trim($this->jam));
+        }
         $this->sesi->update($valid);
     }
 }

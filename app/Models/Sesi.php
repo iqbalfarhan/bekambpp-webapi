@@ -25,7 +25,7 @@ class Sesi extends Model
     {
         $jam = $this->jam;
         if (count($jam) !== 2) {
-            return "Array harus berisi dua waktu.";
+            return "Format penulisan jam salah";
         }
 
         $waktu1 = strtotime($jam[0]);
