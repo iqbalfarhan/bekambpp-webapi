@@ -151,11 +151,20 @@ Berikut adalah beberapa endpoint yang digunakan dalam aplikasi ini:
 
    ```sh
    composer install
-   npm install
+   pnpm install
    ```
 
 3. **Konfigurasi Environment**
+
    Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database dan lainnya.
+
+   ```sh
+   // membuat key untuk laravel
+   php artisan key:generate
+
+   // menghubungkan folder storage agar bisa digunakan
+   php artisan storage:link
+   ```
 
 4. **Migrasi Database**
 
